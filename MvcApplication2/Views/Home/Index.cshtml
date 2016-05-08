@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div ng-app="drpdwnApp" ng-controller="drpdwnCtrl">
+        <select ng-model="ID" ng-options="item.Name for item in CountryList">
+            <option value="" >--Select--</option>
+        </select>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+<script type="text/javascript">
+    angular.module('drpdwnApp', []).controller('drpdwnCtrl', function ($scope, $http) {
+        $scope.CountryList = null;
+        $scope.fillCountryList = function () {
+            var raw =  @Html.Raw(Json.Encode(ViewBag.Countries));
+            $scope.CountryList = raw["Data"];
+        }
+        $scope.fillCountryList();
+    });
+</script>
+
+}
